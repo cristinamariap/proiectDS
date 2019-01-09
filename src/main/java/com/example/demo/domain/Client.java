@@ -35,8 +35,8 @@ public class Client implements Serializable {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "client")
-    @JsonBackReference
+    @OneToMany(mappedBy = "client", cascade = CascadeType.PERSIST)
+    //@JsonBackReference
     private List<Borrowing> borrowings;
 
     public Client() {
@@ -121,6 +121,17 @@ public class Client implements Serializable {
     public int hashCode() {
 
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
     }
 
     public List<Borrowing> getBorrowings() {

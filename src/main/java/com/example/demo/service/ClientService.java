@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.Client;
+import com.example.demo.domain.LoginDTO;
 import com.example.demo.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,4 +46,15 @@ public class ClientService {
     public void addClient(Client client) {
         clientRepository.save(client);
     }
+
+    public boolean login(LoginDTO loginDTO) {
+        Client client = clientRepository.findByEmail(loginDTO.getEmail())
+            .orElseThrow( () -> new RuntimeException("Username not found"));
+
+        if(client.getPassword().equals(loginDTO.getPassword())) {
+            return true;
+        }
+        return false;
+    }
+
 }

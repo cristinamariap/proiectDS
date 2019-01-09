@@ -4,9 +4,13 @@ import com.example.demo.domain.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface BookRepository extends JpaRepository<Book, Integer> {
 
-    Book findBookByAuthor( String author);
+    List<Book> findBookByAuthor(String author);
+    List<Book> findBookByTitle(String title);
+    List<Book> findBookByGenre(String genre);
 
 }

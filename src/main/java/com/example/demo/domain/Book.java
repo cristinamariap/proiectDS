@@ -29,8 +29,8 @@ public class Book implements Serializable {
     @Column(name = "editor")
     private String editor;
 
-    @OneToMany(mappedBy = "book")
-    @JsonBackReference
+    @OneToMany(mappedBy = "book", cascade = CascadeType.PERSIST )
+    //@JsonBackReference
     private List<Borrowing> borrowings;
 
     public Book() {

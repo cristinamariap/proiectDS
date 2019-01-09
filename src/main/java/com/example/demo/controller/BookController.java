@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -25,12 +26,31 @@ public class BookController {
         return bookService.loadBooks();
     }
 
+    @GetMapping("/report/{id}")
+    public void report(@PathVariable int id) throws IOException {
+        bookService.reportFiles(id);
+    }
+
     @GetMapping("/{id}")
     public Book findById(@PathVariable Integer id) {
         return bookService.loadBook(id);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/genre/{g}")
+    public List<Book> findByGenre(@PathVariable String g) {
+        return bookService.loadBookByGenre(g);
+    }
+
+    @GetMapping("/title/{t}")
+    public List<Book> findByTitle(@PathVariable String t) { return bookService.loadBookByTitle(t); }
+
+    @GetMapping("/author/{a}")
+    public List<Book> findByAuthor(@PathVariable String a) {
+        return bookService.loadBookByAuthor(a);
+    }
+
+//    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public void addBook(@RequestBody Book book) {
         bookService.createBook(book);
     }

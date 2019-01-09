@@ -1,6 +1,7 @@
 package com.example.demo.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -29,19 +30,25 @@ public class Borrowing implements Serializable {
     @Column(name = "returned")
     private int returned;
 
+//    @Column(name = "client_id")
+//    private int client_id;
+//
+//    @Column(name = "book_id")
+//    private int book_id;
+
     @ManyToOne
-    @JsonManagedReference
+    @JsonIgnore
     private Client client;
 
     @ManyToOne
-    @JsonManagedReference
+    @JsonIgnore
     private Book book;
 
     public Borrowing() {
 
     }
 
-    public Borrowing(int id, Date startDate, Date endDate, int returned, Client client, Book book) {
+    public Borrowing(int id, Date startDate, Date endDate, int returned, Client client,Book book) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;

@@ -1,9 +1,15 @@
 package com.example.demo.service;
 
+import com.example.demo.controller.BookController;
+import com.example.demo.domain.Book;
 import com.example.demo.domain.Borrowing;
+import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.BorrowingRepository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -11,9 +17,13 @@ public class BorrowingService {
 
     private final BorrowingRepository borrowingRepository;
 
+    private final MailService mailService;
+
     public BorrowingService(BorrowingRepository borrowingRepository) {
         this.borrowingRepository = borrowingRepository;
+        mailService = new MailService("user", "pass");
     }
+
 
     public void createBorrowing(Borrowing borrowing){
         borrowingRepository.save(borrowing);
@@ -25,14 +35,7 @@ public class BorrowingService {
         borrowingRepository.save(lclBorrowing);
     }
 
-    public void reportFiles(){
 
-//        JFileChooser chooser = new JFileChooser(  );
-//        chooser.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY );
-//        chooser.showSaveDialog( null );
-//        System.out.println( chooser.getSelectedFile() );
-
-    }
 
     public Borrowing loadBorrowing(int id) {
         return borrowingRepository.findById(id).get();
@@ -40,5 +43,16 @@ public class BorrowingService {
 
     public List<Borrowing> loadBorrowings() {
         return borrowingRepository.findAll();
+    }
+
+    public void sendEmail(){
+        List<Borrowing> borrowings = loadBorrowings();
+
+        borrowings.forEach(borrowing -> {
+            if(borrowing.getEndDate().compareTo(new Date(System.currentTimeMillis())) <= 0){
+                mailService.sendMail(borrowing.getClient().getEmail(), "Your borrowing is due", borrowing.getBook().getTitle());
+            }
+        });
+
     }
 }

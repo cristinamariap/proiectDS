@@ -1,0 +1,10 @@
+Book 2
+Titlul cartii: t2
+autorul cartii: a2
+genul cartii: g2
+
+Return status: 0
+Borrowed by: id=2, name='n2', address='a2', email='e2', phone='321'}
+Start Date: 2016-10-10 00:00:00.0
+End Date: 2017-10-10 00:00:00.0
+
