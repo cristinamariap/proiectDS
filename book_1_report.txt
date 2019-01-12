@@ -1,8 +1,10 @@
 Book 1
-t1, a1
-g1
-Return status: 1
-Borrowed by: id=1, name='n1', address='a1', email='e1', phone='123'}
-Start Date: 2017-10-10 00:00:00.0
+Titlul cartii: t1
+autorul cartii: a1
+genul cartii: g1
 
-fasfs
+Return status: 1
+Borrowed by: {id=1, name='n1', address='a1', email='e1', phone='123'}
+Start Date: 2017-10-10 00:00:00.0
+End Date: 2018-10-10 00:00:00.0
+

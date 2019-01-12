@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -74,8 +75,8 @@ public class ClientController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginDTO loginDTO) {
         if(clientService.login(loginDTO)) {
-            return ok().build();
+            return ok().body(loginDTO.getEmail());
         }
-        return ResponseEntity.badRequest().build();
+        return badRequest().build();
     }
 }

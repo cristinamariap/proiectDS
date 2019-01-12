@@ -30,7 +30,7 @@ public class Book implements Serializable {
     private String editor;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.PERSIST )
-    //@JsonBackReference
+    //    //@JsonBackReference
     private List<Borrowing> borrowings;
 
     public Book() {
